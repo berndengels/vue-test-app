@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import FormPage from "../views/FormPage";
+import TodosPage from '@/views/TodosPage.vue'
+import FormPage from '@/views/FormPage';
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
 		path: '/',
-		name: 'Home',
-		component: Home
+		name: 'Todos',
+		component: TodosPage
 	},
 	{
 		path: '/form',

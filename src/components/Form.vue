@@ -4,8 +4,8 @@
         <h3 v-else>Mein Formular</h3>
         <div>
             <form>
-                <label for="myMsg">Message: </label>
-                <input id="myMsg" type="text" v-model="msg" />
+                <label for="myMsg">Message: &nbsp;</label>
+                <input id="myMsg" type="text" v-model.lazy="msg" />
             </form>
         </div>
     </div>

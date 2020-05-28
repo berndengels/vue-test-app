@@ -13,3 +13,10 @@ einzelnen Todo Eintags als Listen Elements mit einem Formular:
 
 3. benutzt beide Komponenten in der Todos Komponente, statt der dort hart codierten
 HTML Anweisungen.
+
+4. Optional: Versucht das Laravel videostore Projekt zu erweitern analog zur Erweiterung
+der Movies bezüglich der in der 'movies' Tabelle neu hinzugefügten user-felder:
+- created_by
+- updated_by
+Versucht die gesamte damit verbundene Logik auf auf Authors anzuwenden.
+Das betrifft also Model, Views, neue Migrations und Seeds.

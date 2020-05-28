@@ -28,6 +28,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .done {
+
+    }
     ul {
         list-style: none;
         list-style-type: none;

@@ -1,10 +1,7 @@
 <template>
     <div class="home">
         <!--img alt="Vue logo" src="../assets/logo.png"-->
-        <Todos
-            title="Todos"
-            msg="meine Todos hier"
-        />
+        <Todos title="Todos"/>
     </div>
 </template>
 

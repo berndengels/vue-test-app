@@ -6,6 +6,7 @@
 
 <script>
 	import Form from "../components/Form";
+
 	export default {
 		name: "FormPage",
 		components: { Form },

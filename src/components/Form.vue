@@ -1,10 +1,11 @@
 <template>
     <div>
-        <h3>Mein Formular</h3>
+        <h3 v-if="msg">{{ msg }}</h3>
+        <h3 v-else>Mein Formular</h3>
         <div>
             <form>
                 <label for="myMsg">Message: </label>
-                <input id="myMsg" type="text" />
+                <input id="myMsg" type="text" v-model="msg" />
             </form>
         </div>
     </div>
@@ -12,7 +13,12 @@
 
 <script>
 	export default {
-		name: "Form"
+		name: "Form",
+        data() {
+			return {
+				msg: null,
+            }
+        }
 	}
 </script>
 

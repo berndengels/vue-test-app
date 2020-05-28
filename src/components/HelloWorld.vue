@@ -8,13 +8,17 @@
 <script>
 	export default {
 		name: 'HelloWorld',
-		props: ['title', 'msg'],
-		/*
-          props: {
-            msg: String,
-            title: String,
-          },
-         */
+//		props: ['title', 'msg'],
+        props: {
+            msg: {
+                type: String,
+                required: true
+            },
+            title: {
+				type: String,
+                default: "Default Titel",
+			},
+        },
 	}
 </script>
 

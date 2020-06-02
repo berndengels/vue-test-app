@@ -1,7 +1,7 @@
 Aufgaben für den 29.Mai
 
 1. Erstellt im Verzeichnis 'components' eine Komponente 'AddTodo' mit einem
-Formular zu Erstellen eines neuen 'Todo' Eintrags. Felder:
+Formular zum Erstellen eines neuen 'Todo' Eintrags. Felder:
 - text: title
 - button 'add Todo'
 

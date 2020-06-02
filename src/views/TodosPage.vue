@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <!--img alt="Vue logo" src="../assets/logo.png"-->
-        <Todos title="Todos"/>
+        <Todos header-title="Meine Todos"/>
     </div>
 </template>
 

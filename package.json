@@ -49,6 +49,9 @@
     ],
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/require-prop-types": "off"
     }
   },
   "browserslist": [

@@ -1,11 +1,8 @@
 <template>
     <div class="hello">
+        <h1>{{ headerTitle }}</h1>
         <!-- AddTodo Komponente  -->
-        <form @submit.prevent="false">
-            <input type="text" name="title" v-model="title">
-            <b-button @click="addTodo" class="btn-sm btn-indo float-right">Add Todo</b-button>
-        </form>
-
+        <AddTodo @add-todo="addTodo" />
         <ul>
             <!-- Todo Komponente  -->
             <li v-for="todo in todos" :key="todo.id">
@@ -21,32 +18,35 @@
 
 <script>
     import todoData from "../store/todos.json"
+    import AddTodo from "./AddTodo";
+
 	export default {
 		name: 'Todos',
+        props: ['headerTitle'],
+        components: { AddTodo },
 		data() {
 			return {
 				todos: todoData,
-				title: null,
 			}
 		},
 		methods: {
-			addTodo() {
-				var newData  = {
+			addTodo(title) {
+				const newTodo  = {
 					id: this.getLastId(),
-                    title: this.title,
+                    title: title,
                     done: false
                 }
-				console.log(newData)
-                this.todos.push(newData)
+                this.todos.push(newTodo)
             },
             deleteTodo(todo) {
 				console.info(todo)
-//                this.todos = this.todos.filter(t => t !== todo);
-                this.todos = this.todos.filter(function(t){
+                this.todos = this.todos.filter(function(t) {
                     if(t !== todo) {
 						return t;
                     }
                 });
+				// or ES6 arrow function
+                // this.todos = this.todos.filter(t => t !== todo);
             },
             getLastId() {
 				return this.todos.map(t => t.id).sort().pop() + 1

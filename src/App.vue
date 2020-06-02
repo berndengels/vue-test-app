@@ -1,14 +1,20 @@
 <template>
-    <div id="app">
-        <div id="nav">
-            <router-link to="/">Todos</router-link>
-            |
-            <router-link to="/form">Form</router-link>
-            |
-            <router-link to="/about">About</router-link>
-        </div>
-        <router-view/>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">
+        Todos
+      </router-link>
+      |
+      <router-link to="/form">
+        Form
+      </router-link>
+      |
+      <router-link to="/about">
+        About
+      </router-link>
     </div>
+    <router-view />
+  </div>
 </template>
 
 <style>

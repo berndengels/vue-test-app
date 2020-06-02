@@ -1,14 +1,22 @@
 <template>
+  <div>
+    <h3 v-if="msg">
+      {{ msg }}
+    </h3>
+    <h3 v-else>
+      Mein Formular
+    </h3>
     <div>
-        <h3 v-if="msg">{{ msg }}</h3>
-        <h3 v-else>Mein Formular</h3>
-        <div>
-            <form>
-                <label for="myMsg">Message: &nbsp;</label>
-                <input id="myMsg" type="text" v-model.lazy="msg" />
-            </form>
-        </div>
+      <form>
+        <label for="myMsg">Message: &nbsp;</label>
+        <input
+          id="myMsg"
+          type="text"
+          v-model.lazy="msg"
+        >
+      </form>
     </div>
+  </div>
 </template>
 
 <script>

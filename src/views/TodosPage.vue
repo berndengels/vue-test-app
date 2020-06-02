@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
-        <!--img alt="Vue logo" src="../assets/logo.png"-->
-        <Todos header-title="Meine Todos"/>
-    </div>
+  <div class="container">
+    <!--img alt="Vue logo" src="../assets/logo.png"-->
+    <Todos header-title="Meine Todos" />
+  </div>
 </template>
 
 <script>

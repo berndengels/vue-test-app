@@ -1,12 +1,15 @@
 <template>
     <li>
         <form @submit.prevent>
-            <input type="checkbox" name="done" v-model="todo.done">
-            <span :class="{done: todo.done}">{{ todo.title }}</span>
+            <input name="done" type="checkbox" v-model="todo.done">
+            <span :class="{done: todo.done}"
+                    @click="$emit('select-todo', todo)"
+            >{{ todo.title }}</span>
             <b-button
-                @click="$emit('delete-todo', todo)"
-                class="btn-sm btn-danger float-right"
-            >löschen
+                    @click="$emit('delete-todo', todo)"
+                    class="btn-sm btn-danger float-right"
+            >
+                löschen
             </b-button>
         </form>
     </li>
@@ -15,7 +18,7 @@
 <script>
 	export default {
 		name: "Todo",
-        props: ['todo'],
+		props: ['todo'],
 	}
 </script>
 
@@ -23,6 +26,7 @@
     .done {
         text-decoration: line-through;
     }
+
     li {
         list-style: none;
         height: 2.0rem;
@@ -32,9 +36,11 @@
         border-radius: 5px;
         text-align: left;
     }
+
     li input[type="checkbox"] {
         margin-left: 10px;
     }
+
     li span {
         margin-left: 10px;
     }

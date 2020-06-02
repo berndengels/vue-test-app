@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="container">
         <!--img alt="Vue logo" src="../assets/logo.png"-->
         <Todos header-title="Meine Todos"/>
     </div>

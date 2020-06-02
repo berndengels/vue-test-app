@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="false">
         <input type="text" name="title" v-model="title">
-        <b-button @click="$emit('add-todo', title)" class="btn-sm btn-indo float-right">Add Todo</b-button>
+        <b-button @click="$emit('add-todo', title)" class="btn-sm btn-info ml-2">Add Todo</b-button>
     </form>
 </template>
 

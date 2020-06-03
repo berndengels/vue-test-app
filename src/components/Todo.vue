@@ -2,9 +2,10 @@
     <li>
         <form @submit.prevent>
             <input name="done" type="checkbox" v-model="todo.done">
-            <span :class="{done: todo.done}"
-                    @click="$emit('select-todo', todo)"
-            >{{ todo.title }}</span>
+            <input name="title" type="text" :class="{done: todo.done}"
+                   @click="$emit('select-todo', todo)"
+                   :value="todo.title"
+            />
             <b-button
                     @click="$emit('delete-todo', todo)"
                     class="btn-sm btn-danger float-right"
@@ -26,7 +27,21 @@
     .done {
         text-decoration: line-through;
     }
-
+    form {
+        display: flex;
+        width: 100%;
+    }
+    input[type="checkbox"] {
+        flex: 0.5;
+    }
+    input[type="text"] {
+        flex: 10;
+        height: 1.8rem;
+        border: none;
+    }
+    button {
+        flex: 1;
+    }
     li {
         list-style: none;
         height: 2.0rem;
@@ -35,13 +50,5 @@
         border: 1px solid #42b983;
         border-radius: 5px;
         text-align: left;
-    }
-
-    li input[type="checkbox"] {
-        margin-left: 10px;
-    }
-
-    li span {
-        margin-left: 10px;
     }
 </style>

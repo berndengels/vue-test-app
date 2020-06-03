@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="false">
+  <form @submit.prevent>
     <input
       type="text"
       name="title"

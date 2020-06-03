@@ -2,17 +2,17 @@
     <div>
         <h1>{{ headerTitle }}</h1>
         <!-- AddTodo Komponente  -->
-        <AddTodo @add-todo="addTodo"/>
+        <AddTodo @add-todo="apiStore" />
         <div class="justify-content-center">
             <pulse-loader  v-if="loader.loading" class="mt-4" :loading="loader.loading" />
             <ul v-else>
                 <!-- Todo Komponente  -->
                 <Todo
+                        v-for="todo in todos"
                         :key="todo.id"
                         :todo="todo"
                         @delete-todo="apiDestroy"
                         @select-todo="selectTodo"
-                        v-for="todo in todos"
                 />
             </ul>
             <TodoInfo :todo="selectedTodo"/>
@@ -70,27 +70,30 @@ const apiURL = 'http://videostore.loc/api/todo'
 		            .catch(err => console.error(err))
             },
             apiStore(title) {
+	            const params = {
+		            title: title,
+		            done: false
+	            }
+	            this.loader.loading = true
+	            axios.post(apiURL, params)
+		            .then(response => {
+		            	this.addTodo(response.data.result)
+			            this.loader.loading = false
+		            })
+		            .catch(err => console.error(err))
             },
 			apiUpdate(todo) {
 			},
 			selectTodo(todo) {
 				this.selectedTodo = todo
 			},
-			addTodo(title) {
-				const newTodo = {
-					id: this.getLastId(),
-					title: title,
-					done: false
-				}
-				this.todos.push(newTodo)
+			addTodo(todo) {
+				this.todos.push(todo)
 			},
 			deleteTodo(todo) {
 				// or ES6 arrow function
 				this.todos = this.todos.filter(t => t !== todo);
 			},
-			getLastId() {
-				return this.todos.map(t => t.id).sort().pop() + 1
-			}
 		}
 	}
 </script>

@@ -10,13 +10,13 @@
             />
             <b-button
                     @click="$emit('delete-todo', todo)"
-                    class="btn-sm btn-danger float-right"
+                    class="btn-sm btn-danger float-right del"
             >
                 löschen
             </b-button>
         </form>
-        <div v-if="todo.error" class="alert-danger px-2 py-0 m-1 justify-content-center">
-            <span>{{ todo.error }}</span>
+        <div v-if="todo.errors && todo.errors.title && todo.errors.title.length > 0" class="alert-danger px-2 py-0 m-1 justify-content-center">
+            <span>{{ todo.errors.title[0] }}</span>
         </div>
     </li>
 </template>

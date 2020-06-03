@@ -2,7 +2,7 @@
     <div>
         <h1>{{ headerTitle }}</h1>
         <!-- AddTodo Komponente  -->
-        <AddTodo @add-todo="apiStore" :error="error" />
+        <AddTodo @add-todo="apiStore" :errors="errors" />
         <div class="justify-content-center">
             <pulse-loader  v-if="loader.loading" class="mt-4" :loading="loader.loading" />
             <ul v-else>
@@ -36,7 +36,7 @@ const apiURL = 'http://videostore.loc/api/todo'
 		data() {
 			return {
 				todos: [],
-                error: null,
+                errors: null,
 				selectedTodo: {
 					id: 0,
 					title: 'nix ausgewählt',
@@ -64,6 +64,10 @@ const apiURL = 'http://videostore.loc/api/todo'
 					.catch(err => console.error(err))
 			},
             apiDestroy(todo) {
+	            if (!confirm('Daten wirklich löschen?')) {
+	            	return
+                }
+
 	            this.loader.loading = true
 	            axios.delete(apiURL + "/" + todo.id)
 		            .then(response => {
@@ -81,10 +85,10 @@ const apiURL = 'http://videostore.loc/api/todo'
 	            axios.post(apiURL, params)
 		            .then(response => {
 		            	if(response.data.success && !response.data.errors) {
-				            this.error = null
+				            this.errors = null
 				            this.addTodo(response.data.result)
                         } else {
-                            this.error = response.data.errors.title.shift()
+                            this.errors = response.data.errors
                         }
 			            this.loader.loading = false
 		            })
@@ -97,7 +101,7 @@ const apiURL = 'http://videostore.loc/api/todo'
 						let validationSuccess = response.data.success && !response.data.errors
 						this.todos = this.todos.filter(t => {
 							if(t === todo) {
-								t.error = validationSuccess ? null : response.data.errors.title.shift()
+								t.errors = validationSuccess ? null : response.data.errors
 							}
 							return t;
 						})

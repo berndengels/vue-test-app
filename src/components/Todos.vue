@@ -10,7 +10,7 @@
                 <Todo
                         :key="todo.id"
                         :todo="todo"
-                        @delete-todo="deleteTodo"
+                        @delete-todo="apiDestroy"
                         @select-todo="selectTodo"
                         v-for="todo in todos"
                 />
@@ -54,15 +54,25 @@ const apiURL = 'http://videostore.loc/api/todo'
             apiIndex() {
             	this.loader.loading = true
 				axios.get(apiURL)
-					.then(reponse => {
-						this.todos = reponse.data
+					.then(response => {
+						this.todos = response.data
 						this.loader.loading = false
 					})
 					.catch(err => console.error(err))
 			},
-            apiDelete() {
-
+            apiDestroy(todo) {
+	            this.loader.loading = true
+	            axios.delete(apiURL + "/" + todo.id)
+		            .then(response => {
+			            this.deleteTodo(todo)
+			            this.loader.loading = false
+		            })
+		            .catch(err => console.error(err))
             },
+            apiStore(title) {
+            },
+			apiUpdate(todo) {
+			},
 			selectTodo(todo) {
 				this.selectedTodo = todo
 			},

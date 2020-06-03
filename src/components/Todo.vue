@@ -1,10 +1,12 @@
 <template>
     <li>
         <form @submit.prevent>
-            <input name="done" type="checkbox" v-model="todo.done">
-            <input name="title" type="text" :class="{done: todo.done}"
+            <input name="done" type="checkbox" v-model="todo.done"
+                   @change="$emit('update-todo', todo)">
+            <input name="title" type="text" :class="{'done': todo.done}"
+                   v-model.lazy="todo.title"
                    @click="$emit('select-todo', todo)"
-                   :value="todo.title"
+                   @change="$emit('update-todo', todo)"
             />
             <b-button
                     @click="$emit('delete-todo', todo)"

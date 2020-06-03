@@ -2,7 +2,7 @@
     <div>
         <h1>{{ headerTitle }}</h1>
         <!-- AddTodo Komponente  -->
-        <AddTodo @add-todo="apiStore" />
+        <AddTodo @add-todo="apiStore" :error="error" />
         <div class="justify-content-center">
             <pulse-loader  v-if="loader.loading" class="mt-4" :loading="loader.loading" />
             <ul v-else>
@@ -12,6 +12,7 @@
                         :key="todo.id"
                         :todo="todo"
                         @delete-todo="apiDestroy"
+                        @update-todo="apiUpdate"
                         @select-todo="selectTodo"
                 />
             </ul>
@@ -35,6 +36,7 @@ const apiURL = 'http://videostore.loc/api/todo'
 		data() {
 			return {
 				todos: [],
+                error: null,
 				selectedTodo: {
 					id: 0,
 					title: 'nix ausgewählt',
@@ -77,12 +79,23 @@ const apiURL = 'http://videostore.loc/api/todo'
 	            this.loader.loading = true
 	            axios.post(apiURL, params)
 		            .then(response => {
-		            	this.addTodo(response.data.result)
+		            	if(response.data.success && !response.data.errors) {
+				            this.error = null
+				            this.addTodo(response.data.result)
+                        } else {
+                            this.error = response.data.errors.title.shift()
+                        }
 			            this.loader.loading = false
 		            })
 		            .catch(err => console.error(err))
             },
 			apiUpdate(todo) {
+				this.loader.loading = true
+				axios.put(apiURL + "/" + todo.id, todo)
+					.then(response => {
+						this.loader.loading = false
+					})
+					.catch(err => console.error(err))
 			},
 			selectTodo(todo) {
 				this.selectedTodo = todo

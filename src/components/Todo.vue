@@ -15,6 +15,9 @@
                 löschen
             </b-button>
         </form>
+        <div v-if="todo.error" class="alert-danger px-2 py-0 m-1 justify-content-center">
+            <span>{{ todo.error }}</span>
+        </div>
     </li>
 </template>
 
@@ -46,7 +49,8 @@
     }
     li {
         list-style: none;
-        height: 2.0rem;
+        height: auto;
+        min-height: 2.0rem;
         line-height: 2.0rem;
         margin: 5px 10px 0 10px;
         border: 1px solid #42b983;

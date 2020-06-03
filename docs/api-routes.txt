@@ -1,5 +1,5 @@
-| POST      | api/todo                | App\Http\Controllers\Api\TodoController@store
-| GET|HEAD  | api/todo                | App\Http\Controllers\Api\TodoController@index
-| GET|HEAD  | api/todo/{todo}         | App\Http\Controllers\Api\TodoController@show
-| PUT|PATCH | api/todo/{todo}         | App\Http\Controllers\Api\TodoController@update
-| DELETE    | api/todo/{todo}         | App\Http\Controllers\Api\TodoController@destroy
+| POST      | api/todo          | App\Http\Controllers\Api\TodoController@store
+| GET|HEAD  | api/todo          | App\Http\Controllers\Api\TodoController@index
+| GET|HEAD  | api/todo/{todo}   | App\Http\Controllers\Api\TodoController@show
+| PUT|PATCH | api/todo/{todo}   | App\Http\Controllers\Api\TodoController@update
+| DELETE    | api/todo/{todo}   | App\Http\Controllers\Api\TodoController@destroy

@@ -4,7 +4,10 @@
         <!-- AddTodo Komponente  -->
         <AddTodo @add-todo="addTodo"/>
         <div class="justify-content-center">
-            <ul>
+            <div v-if="loader.loading">
+                <pulse-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></pulse-loader>
+            </div>
+            <ul v-else>
                 <!-- Todo Komponente  -->
                 <Todo
                         :key="todo.id"
@@ -24,13 +27,14 @@
 	import AddTodo from "./AddTodo";
 	import Todo from "./Todo";
 	import TodoInfo from "./TodoInfo";
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 	const apiURL = 'http://videostore.loc/api/todo'
 
 	export default {
 		name: 'Todos',
 		props: ['headerTitle'],
-		components: {TodoInfo, AddTodo, Todo},
+		components: {TodoInfo, AddTodo, Todo, PulseLoader},
 		data() {
 			return {
 				todos: [],
@@ -39,6 +43,11 @@
 					title: 'nix ausgewählt',
 					done: false,
 				},
+				loader: {
+					color: 'green',
+					size: "50",
+					loading: false,
+				},
 			}
 		},
 		created() {
@@ -46,8 +55,12 @@
 		},
 		methods: {
             apiIndex() {
+            	this.loader.loading = true
 				axios.get(apiURL)
-					.then(reponse => this.todos = reponse.data)
+					.then(reponse => {
+						this.todos = reponse.data
+//						this.loader.loading = false
+					})
 					.catch(err => console.error(err))
 			},
 			selectTodo(todo) {

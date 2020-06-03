@@ -53,6 +53,7 @@ const apiURL = 'http://videostore.loc/api/todo'
 			this.apiIndex()
 		},
 		methods: {
+			// vue api requests
             apiIndex() {
             	this.loader.loading = true
 				axios.get(apiURL)
@@ -93,10 +94,19 @@ const apiURL = 'http://videostore.loc/api/todo'
 				this.loader.loading = true
 				axios.put(apiURL + "/" + todo.id, todo)
 					.then(response => {
+						let validationSuccess = response.data.success && !response.data.errors
+						this.todos = this.todos.filter(t => {
+							if(t === todo) {
+								t.error = validationSuccess ? null : response.data.errors.title.shift()
+							}
+							return t;
+						})
 						this.loader.loading = false
 					})
 					.catch(err => console.error(err))
 			},
+
+            // vue intern js actions
 			selectTodo(todo) {
 				this.selectedTodo = todo
 			},

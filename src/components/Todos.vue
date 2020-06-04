@@ -8,7 +8,7 @@
             <ul v-else>
                 <!-- Todo Komponente  -->
                 <Todo
-                        v-for="todo in todos"
+                        v-for="todo in allTodos"
                         :key="todo.id"
                         :todo="todo"
                         @delete-todo="apiDestroy"
@@ -25,6 +25,7 @@
 	import AddTodo from "./AddTodo";
 	import Todo from "./Todo";
 	import TodoInfo from "./TodoInfo";
+	import { mapActions, mapGetters } from 'vuex'
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 const apiURL = 'http://videostore.loc/api/todo'
@@ -50,19 +51,11 @@ const apiURL = 'http://videostore.loc/api/todo'
 			}
 		},
 		created() {
-			this.apiIndex()
+            this.apiIndex()
 		},
+        computed: mapGetters(['allTodos']),
 		methods: {
-			// vue api requests
-            apiIndex() {
-            	this.loader.loading = true
-				axios.get(apiURL)
-					.then(response => {
-						this.todos = response.data
-						this.loader.loading = false
-					})
-					.catch(err => console.error(err))
-			},
+			...mapActions(['apiIndex']),
             apiDestroy(todo) {
 	            if (!confirm('Daten wirklich löschen?')) {
 	            	return

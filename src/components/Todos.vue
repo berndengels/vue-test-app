@@ -5,7 +5,7 @@
         <AddTodo />
 
         <div class="justify-content-center">
-            <pulse-loader  v-if="loader.loading" class="mt-4" :loading="loader.loading" />
+            <pulse-loader  v-if="isLoading" class="mt-4" :loading="isLoading" />
             <ul v-else>
                 <!-- Todo Komponente  -->
                 <Todo
@@ -26,8 +26,6 @@
 	import { mapActions, mapGetters } from 'vuex'
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
-const apiURL = 'http://videostore.loc/api/todo'
-
 	export default {
 		name: 'Todos',
 		props: ['headerTitle'],
@@ -46,7 +44,7 @@ const apiURL = 'http://videostore.loc/api/todo'
 		created() {
             this.apiIndex()
 		},
-        computed: mapGetters(['allTodos']),
+        computed: mapGetters(['allTodos','isLoading']),
 		methods: {
 			...mapActions(['apiIndex']),
 		}

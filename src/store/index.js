@@ -23,13 +23,15 @@ export default new Vuex.Store({
 		selectedTodo: (state => state.todo),
 		storeErrors: (state => state.storeErrors),
 		updateErrors: (state => id => state.updateErrors[id] ?? null),
-		loading: (state => state.loading),
+		isLoading: (state => state.loading),
 	},
 	actions: {
 		apiIndex({commit}) {
+			commit('setLoading', true)
 			axios.get(apiURL)
 				.then(response => {
 					commit('setTodos', response.data)
+					commit('setLoading', false)
 				})
 				.catch(err => console.error(err))
 		},
@@ -73,6 +75,7 @@ export default new Vuex.Store({
 				.then(() => {
 					commit('removedTodo', todo)
 					commit('setLoading', false)
+					commit('selectedTodo', {})
 				})
 				.catch(err => console.error(err))
 		},

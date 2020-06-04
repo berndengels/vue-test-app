@@ -3,14 +3,14 @@
         <h3>Todo Info</h3>
         <table
                 class="table table-striped"
-                v-if="todo"
+                v-if="selectedTodo"
         >
             <tr>
                 <th class="col-2">
                     ID
                 </th>
                 <td class="col-auto">
-                    {{ todo.id }}
+                    {{ selectedTodo.id }}
                 </td>
             </tr>
             <tr>
@@ -18,7 +18,7 @@
                     Titel
                 </th>
                 <td class="col-auto">
-                    {{ todo.title }}
+                    {{ selectedTodo.title }}
                 </td>
             </tr>
             <tr>
@@ -26,7 +26,7 @@
                     erledigt
                 </th>
                 <td class="col-auto">
-                    {{ todo.done }}
+                    {{ selectedTodo.done }}
                 </td>
             </tr>
         </table>
@@ -37,20 +37,11 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
 	export default {
 		name: "TodoInfo",
-		props: {
-			todo: {
-				type: Object,
-				default: function () {
-					return {
-						id: null,
-						title: null,
-						done: false,
-					}
-				}
-			}
-		},
+        computed: mapGetters(['selectedTodo']),
 	}
 </script>
 

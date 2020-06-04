@@ -12,14 +12,14 @@
         >
             Add Todo
         </b-button>
-        <!--div v-if="errors && errors.title && errors.title.length > 0 " class="alert-danger p-2 m-2 justify-content-center">
-            <span>{{ errors.title[0] }}</span>
-        </div-->
+        <div v-if="storeErrors && storeErrors.title " class="alert-danger p-2 m-2 justify-content-center">
+            <span>{{ storeErrors.title[0] }}</span>
+        </div>
     </form>
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
 
 	export default {
 		name: "AddTodo",
@@ -38,7 +38,8 @@
 				this.apiStore(obj)
                 this.title = null
             }
-        }
+        },
+		computed: mapGetters(['storeErrors']),
 	}
 </script>
 

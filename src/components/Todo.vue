@@ -17,14 +17,15 @@
                 löschen
             </b-button>
         </form>
-        <!--div v-if="todo.errors && todo.errors.title && todo.errors.title.length > 0" class="alert-danger px-2 py-0 m-1 justify-content-center">
-            <span>{{ todo.errors.title[0] }}</span>
-        </div-->
+        <div v-if="updateErrors && updateErrors.title" class="alert-danger px-2 py-0 m-1 justify-content-center">
+            <span>{{ updateErrors.title[0] }}</span>
+        </div>
     </li>
 </template>
 
 <script>
 	import { mapActions } from 'vuex';
+	import store from '../store'
 
 	export default {
 		name: "Todo",
@@ -40,7 +41,12 @@
 			handleDelete(todo) {
 				this.apiDestroy(todo)
 			},
-		}
+		},
+		computed: {
+			updateErrors() {
+				return store.getters.updateErrors(this.todo.id)
+			}
+		},
 	}
 </script>
 

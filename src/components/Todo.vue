@@ -1,18 +1,19 @@
 <template>
     <li>
         <form @submit.prevent>
-            <input @change="onChange(todo)" name="done" type="checkbox"
-                   v-model="todo.done">
-            <input :class="{'done': todo.done}"
+            <input name="done" type="checkbox"
+                   v-model="todo.done"
+                   @change="onChange(todo)"
+            >
+            <input name="title" type="text"
+                   v-model="todo.title"
+                   :class="{'done': todo.done}"
                    @change="onChange(todo)"
                    @click="onSelect(todo)"
-                   name="title"
-                   type="text"
-                   v-model="todo.title"
             />
             <b-button
-                    @click="handleDelete(todo)"
                     class="btn-sm btn-danger float-right del"
+                    @click="handleDelete(todo)"
             >
                 löschen
             </b-button>
@@ -31,7 +32,11 @@
 		name: "Todo",
 		props: ['todo'],
 		methods: {
-			...mapActions(['selectTodo', 'apiUpdate', 'apiDestroy']),
+			...mapActions({
+				selectTodo: 'todos/selectTodo',
+				apiUpdate:  'todos/apiUpdate',
+				apiDestroy: 'todos/apiDestroy',
+			}),
 			onSelect(todo) {
 				this.selectTodo(todo)
 			},
@@ -44,7 +49,7 @@
 		},
 		computed: {
 			updateErrors() {
-				return store.getters.updateErrors(this.todo.id)
+				return store.getters['todos/updateErrors'](this.todo.id)
 			}
 		},
 	}

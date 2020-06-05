@@ -15,7 +15,7 @@
                 />
             </ul>
 
-            <TodoInfo modal />
+            <TodoInfo />
         </div>
     </div>
 </template>
@@ -34,7 +34,6 @@
 		components: {Modal, AddTodo, Todo, TodoInfo, PulseLoader },
 		data() {
 			return {
-				todos: [],
                 errors: null,
 				loader: {
 					loading: false,
@@ -47,10 +46,13 @@
             this.apiIndex()
 		},
         computed: {
-			...mapGetters(['allTodos', 'isLoading']),
+			...mapGetters({
+                allTodos:   'todos/allTodos',
+				isLoading:  'todos/isLoading',
+		}),
         },
 		methods: {
-			...mapActions(['apiIndex']),
+			...mapActions({apiIndex: 'todos/apiIndex'}),
 		}
 	}
 </script>

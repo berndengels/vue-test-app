@@ -29,7 +29,7 @@
 			}
 		},
         methods: {
-			...mapActions(['apiStore']),
+			...mapActions({apiStore: 'todos/apiStore'}),
 			add() {
 				const obj = {
 					title: this.title,
@@ -39,7 +39,7 @@
                 this.title = null
             }
         },
-		computed: mapGetters(['storeErrors']),
+		computed: mapGetters({storeErrors: 'todos/storeErrors'}),
 	}
 </script>
 

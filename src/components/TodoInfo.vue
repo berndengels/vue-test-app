@@ -47,11 +47,11 @@
             },
         },
         components: { Modal },
-        computed: mapGetters(['selectedTodo']),
+        computed: mapGetters({selectedTodo: 'todos/selectedTodo'}),
 		created() {
-			if(this.modal) {
+			if(true === this.modal) {
 				this.unwatch = store.watch(
-					(state, getters) => getters.selectedTodo,
+					(state, getters) => getters['todos/selectedTodo'],
 					(newValue) => newValue ? this.$refs.todoInfo.openModal() : false
 				).bind(this);
             }

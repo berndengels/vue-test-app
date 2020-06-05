@@ -9,11 +9,7 @@ const apiURL = 'http://videostore.loc/api/todo';
 export default new Vuex.Store({
 	state: {
 		todos: [],
-		todo: {
-			id: 0,
-			title: 'Standard Titel',
-			done: false,
-		},
+		todo: null,
 		storeErrors: null,
 		updateErrors: [],
 		loading: false,

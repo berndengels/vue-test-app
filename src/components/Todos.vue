@@ -14,7 +14,8 @@
                         :todo="todo"
                 />
             </ul>
-            <TodoInfo />
+
+            <TodoInfo modal />
         </div>
     </div>
 </template>
@@ -23,13 +24,14 @@
 	import AddTodo from "./AddTodo";
 	import Todo from "./Todo";
 	import TodoInfo from "./TodoInfo";
+    import Modal from "./layouts/Modal";
 	import { mapActions, mapGetters } from 'vuex'
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 	export default {
 		name: 'Todos',
 		props: ['headerTitle'],
-		components: { TodoInfo, AddTodo, Todo, PulseLoader },
+		components: {Modal, AddTodo, Todo, TodoInfo, PulseLoader },
 		data() {
 			return {
 				todos: [],
@@ -44,7 +46,9 @@
 		created() {
             this.apiIndex()
 		},
-        computed: mapGetters(['allTodos','isLoading']),
+        computed: {
+			...mapGetters(['allTodos', 'isLoading']),
+        },
 		methods: {
 			...mapActions(['apiIndex']),
 		}

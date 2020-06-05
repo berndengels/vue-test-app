@@ -29,7 +29,6 @@ export default {
 				.catch(err => console.error(err))
 		},
 		apiStore({commit}, todo) {
-//			commit('setLoading', true)
 			axios.post(apiURL, todo)
 				.then(response => {
 					if( response.data.success && response.data.result && !response.data.errors ) {
@@ -39,12 +38,10 @@ export default {
 					} else {
 						commit('setStoreErrors', response.data.errors)
 					}
-//					commit('setLoading', false)
 				})
 				.catch(err => console.error(err))
 		},
 		apiUpdate({commit}, todo) {
-//			commit('setLoading', true)
 			axios.put(apiURL + "/" + todo.id, todo)
 				.then(response => {
 					if( response.data.success && response.data.result && !response.data.errors ) {
@@ -55,7 +52,6 @@ export default {
 						const errors = response.data.errors
 						commit('setUpdateErrors', { todo, errors } )
 					}
-//					commit('setLoading', false)
 				})
 				.catch(err => console.error(err))
 		},
@@ -63,11 +59,9 @@ export default {
 			if (!confirm('Daten wirklich löschen?')) {
 				return
 			}
-			commit('setLoading', true)
 			axios.delete(apiURL + "/" + todo.id)
 				.then(() => {
 					commit('removedTodo', todo)
-					commit('setLoading', false)
 					commit('selectedTodo', {})
 				})
 				.catch(err => console.error(err))

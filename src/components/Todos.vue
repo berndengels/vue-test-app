@@ -16,6 +16,8 @@
             </ul>
 
             <TodoInfo />
+            <!-- or open in modal window -->
+            <!-- TodoInfo modal /-->
         </div>
     </div>
 </template>

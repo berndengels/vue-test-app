@@ -9,10 +9,7 @@
     <div>
       <form>
         <label for="myMsg">Message: &nbsp;</label>
-        <input
-          id="myMsg"
-          type="text"
-          v-model.lazy="msg"
+        <input id="myMsg" type="text" v-model="msg"
         >
       </form>
     </div>
@@ -22,11 +19,11 @@
 <script>
 	export default {
 		name: "Form",
-        data() {
-			return {
-				msg: null,
-            }
-        }
+    data() {
+      return {
+        msg: null,
+      }
+    }
 	}
 </script>
 

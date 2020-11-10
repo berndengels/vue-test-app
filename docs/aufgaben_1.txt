@@ -8,7 +8,7 @@ Formular zum Erstellen eines neuen 'Todo' Eintrags. Felder:
 2. Erstellt im Verzeichnis 'components' eine Komponente 'Todo' für die Anzeige eines
 einzelnen Todo Eintags als Listen Elements mit einem Formular:
 - checkbox: name 'done'
-- title as text
+- text: name 'text'
 - button zum löschen eines todo's
 
 3. benutzt beide Komponenten in der Todos Komponente, statt der dort hart codierten

@@ -36,7 +36,7 @@
 		components: {Modal, AddTodo, Todo, TodoInfo, PulseLoader },
 		data() {
 			return {
-                errors: null,
+        errors: null,
 				loader: {
 					loading: false,
 					color: '#249724',
@@ -47,12 +47,12 @@
 		created() {
             this.apiIndex()
 		},
-        computed: {
+    computed: {
 			...mapGetters({
-                allTodos:   'todos/allTodos',
+        allTodos:   'todos/allTodos',
 				isLoading:  'todos/isLoading',
-		}),
-        },
+		  }),
+    },
 		methods: {
 			...mapActions({apiIndex: 'todos/apiIndex'}),
 		}

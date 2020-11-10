@@ -10,7 +10,7 @@ import axios from "axios";
 
 let config = {
 	// baseURL: process.env.baseURL || process.env.apiUrl || ""
-	baseURL: "http://videostore.loc/api/todo"
+	baseURL: "http://videostore.loc/api/todos"
 	// timeout: 60 * 1000, // Timeout
 	// withCredentials: true, // Check cross-site Access-Control
 };

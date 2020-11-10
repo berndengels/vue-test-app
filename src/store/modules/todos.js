@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiURL = "http://videostore.loc/api/todo"
+const apiURL = "http://videostore.loc/api/todos"
 
 export default {
 	namespaced: true,

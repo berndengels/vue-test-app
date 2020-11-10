@@ -7,8 +7,8 @@
         <template v-slot:body>
             <table class="table table-striped" v-if="selectedTodo">
                 <tr><th class="col-2">ID</th><td class="col-auto">{{ selectedTodo.id }}</td></tr>
-                <tr><th class="col-2">Titel</th><td class="col-auto">{{ selectedTodo.title }}</td></tr>
-                <tr><th class="col-2">erledigt</th><td class="col-auto">{{ selectedTodo.done }}</td></tr>
+                <tr><th class="col-2">Titel</th><td class="col-auto">{{ selectedTodo.text }}</td></tr>
+                <tr><th class="col-2">erledigt</th><td class="col-auto">{{ selectedTodo.done ? 'Ja' : 'Nein' }}</td></tr>
             </table>
         </template>
 
@@ -23,8 +23,8 @@
         <h3>Todo Info</h3>
         <table class="table table-striped" v-if="selectedTodo">
             <tr><th class="col-2">ID</th><td class="col-auto">{{ selectedTodo.id }}</td></tr>
-            <tr><th class="col-2">Titel</th><td class="col-auto">{{ selectedTodo.title }}</td></tr>
-            <tr><th class="col-2">erledigt</th><td class="col-auto">{{ selectedTodo.done }}</td></tr>
+            <tr><th class="col-2">Titel</th><td class="col-auto">{{ selectedTodo.text }}</td></tr>
+            <tr><th class="col-2">erledigt</th><td class="col-auto">{{ selectedTodo.done ? 'Ja' : 'Nein' }}</td></tr>
         </table>
         <p v-else>
             no selected Todo
@@ -39,7 +39,7 @@
 
 	export default {
 		name: "TodoInfo",
-        props: {
+    props: {
 			modal: {
 				type: Boolean,
                 require: false,
@@ -54,7 +54,7 @@
 					(state, getters) => getters['todos/selectedTodo'],
 					(newValue) => newValue ? this.$refs.todoInfo.openModal() : false
 				).bind(this);
-            }
+      }
 		},
 	}
 </script>

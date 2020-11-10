@@ -6,7 +6,7 @@
                    @change="onChange(todo)"
             >
             <input name="title" type="text"
-                   v-model="todo.title"
+                   v-model="todo.text"
                    :class="{'done': todo.done}"
                    @change="onChange(todo)"
                    @click="onSelect(todo)"
@@ -15,11 +15,11 @@
                     class="btn-sm btn-danger float-right del"
                     @click="handleDelete(todo)"
             >
-                löschen
+              <font-awesome-icon icon="trash-alt" />löschen
             </b-button>
         </form>
-        <div v-if="updateErrors && updateErrors.title" class="alert-danger px-2 py-0 m-1 justify-content-center">
-            <span>{{ updateErrors.title[0] }}</span>
+        <div v-if="updateErrors && updateErrors.text" class="alert-danger px-2 py-0 m-1 justify-content-center">
+            <span>{{ updateErrors.text[0] }}</span>
         </div>
     </li>
 </template>
@@ -88,5 +88,9 @@
         border: 1px solid #42b983;
         border-radius: 5px;
         text-align: left;
+    }
+    svg[data-icon] {
+      display: inline;
+      margin-right: 5px;
     }
 </style>

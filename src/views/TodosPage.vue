@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!--img alt="Vue logo" src="../assets/logo.png"-->
     <Todos header-title="Meine Todos Page" />
   </div>
 </template>

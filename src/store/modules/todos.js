@@ -23,8 +23,12 @@ export default {
 			commit('setLoading', true)
 			axios.get(apiURL)
 				.then(response => {
-					commit('setTodos', response.data)
-					commit('setLoading', false)
+					if( response.data.success && response.data.result && !response.data.errors ) {
+						commit('setTodos', response.data.result)
+						commit('setLoading', false)
+					} else {
+						commit('setStoreErrors', response.data.errors)
+					}
 				})
 				.catch(err => console.error(err))
 		},

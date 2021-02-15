@@ -2,20 +2,20 @@
     <div>
         <h1>{{ headerTitle }}</h1>
         <!-- AddTodo Komponente  -->
-        <AddTodo />
+        <AddTodo/>
 
         <div class="justify-content-center">
-            <pulse-loader  v-if="isLoading" class="mt-4" :loading="isLoading" />
+            <pulse-loader v-if="isLoading" :loading="isLoading" class="mt-4"/>
             <ul v-else>
                 <!-- Todo Komponente  -->
                 <Todo
-                        v-for="todo in allTodos"
-                        :key="todo.id"
-                        :todo="todo"
+                    v-for="todo in allTodos"
+                    :key="todo.id"
+                    :todo="todo"
                 />
             </ul>
 
-            <TodoInfo />
+            <TodoInfo/>
             <!-- or open in modal window -->
             <!-- TodoInfo modal /-->
         </div>
@@ -23,46 +23,46 @@
 </template>
 
 <script>/* eslint-disable */
-	import AddTodo from "./AddTodo";
-	import Todo from "./Todo";
-	import TodoInfo from "./TodoInfo";
-    import Modal from "./layouts/Modal";
-	import { mapActions, mapGetters } from 'vuex'
-    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import AddTodo from "./AddTodo";
+import Todo from "./Todo";
+import TodoInfo from "./TodoInfo";
+import Modal from "./layouts/Modal";
+import {mapActions, mapGetters} from 'vuex'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
-	export default {
-		name: 'Todos',
-		props: ['headerTitle'],
-		components: {Modal, AddTodo, Todo, TodoInfo, PulseLoader },
-		data() {
-			return {
-        errors: null,
-				loader: {
-					loading: false,
-					color: '#249724',
-					size: '20px',
-				},
-			}
-		},
-		created() {
-            this.apiIndex()
-		},
-    computed: {
-			...mapGetters({
-        allTodos:   'todos/allTodos',
-				isLoading:  'todos/isLoading',
-		  }),
+export default {
+    name: 'Todos',
+    props: ['headerTitle'],
+    components: {Modal, AddTodo, Todo, TodoInfo, PulseLoader},
+    data() {
+        return {
+            errors: null,
+            loader: {
+                loading: false,
+                color: '#249724',
+                size: '20px',
+            },
+        }
     },
-		methods: {
-			...mapActions({apiIndex: 'todos/apiIndex'}),
-		}
-	}
+    created() {
+        this.apiIndex()
+    },
+    computed: {
+        ...mapGetters({
+            allTodos: 'todos/allTodos',
+            isLoading: 'todos/isLoading',
+        }),
+    },
+    methods: {
+        ...mapActions({apiIndex: 'todos/apiIndex'}),
+    }
+}
 </script>
 
 <style scoped>
-    ul {
-        list-style: none;
-        list-style-type: none;
-        padding: 0;
-    }
+ul {
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+}
 </style>

@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <Form />
-  </div>
+    <div>
+        <Form/>
+    </div>
 </template>
 
 <script>
-	import Form from "../components/Form";
+import Form from "../components/Form";
 
-	export default {
-		name: "FormPage",
-		components: { Form },
-	}
+export default {
+    name: "FormPage",
+    components: {Form},
+}
 </script>
 
 <style scoped>

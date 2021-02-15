@@ -6,5 +6,5 @@ Vue.use(Vuex)
 const store = new Vuex.Store()
 
 // register a nested module `nested/myModule`
-store.registerModule(['todos'], todos )
+store.registerModule(['todos'], todos)
 export default store

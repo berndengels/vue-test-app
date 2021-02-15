@@ -7,11 +7,15 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Plugin from "@/plugins/axios";
+//import Axios from "axios";
 
 Vue.config.productionTip = false
 
+Vue.use(Plugin);
+
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+	router,
+	store,
+	render: h => h(App)
 }).$mount('#app')

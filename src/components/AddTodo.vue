@@ -1,16 +1,17 @@
 <template>
     <form @submit.prevent>
         <input
-                name="title"
-                type="text"
-                v-model="text"
-                placeholder="Add Todo"
+            v-model="text"
+            name="title"
+            placeholder="Add Todo"
+            type="text"
         >
         <b-button
-                @click="add"
-                class="btn-sm btn-info ml-2"
+            class="btn-sm btn-info ml-2"
+            @click="add"
         >
-          <font-awesome-icon icon="plus-square" />Add Todo
+            <font-awesome-icon icon="plus-square"/>
+            Add Todo
         </b-button>
         <div v-if="storeErrors && storeErrors.text " class="alert-danger p-2 m-2 justify-content-center">
             <span>{{ storeErrors.text[0] }}</span>
@@ -19,33 +20,33 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
-	export default {
-		name: "AddTodo",
-		data() {
-			return {
-				text: null,
-			}
-		},
-        methods: {
-			...mapActions({apiStore: 'todos/apiStore'}),
-			add() {
-				const obj = {
-					text: this.text,
-          done: false,
+export default {
+    name: "AddTodo",
+    data() {
+        return {
+            text: null,
         }
-				this.apiStore(obj)
-                this.title = null
+    },
+    methods: {
+        ...mapActions({apiStore: 'todos/apiStore'}),
+        add() {
+            const obj = {
+                text: this.text,
+                done: false,
             }
-        },
-		computed: mapGetters({storeErrors: 'todos/storeErrors'}),
-	}
+            this.apiStore(obj)
+            this.title = null
+        }
+    },
+    computed: mapGetters({storeErrors: 'todos/storeErrors'}),
+}
 </script>
 
 <style scoped>
 svg[data-icon] {
-  display: inline;
-  margin-right: 5px;
+    display: inline;
+    margin-right: 5px;
 }
 </style>

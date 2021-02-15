@@ -40,6 +40,7 @@ _axios.interceptors.response.use(
 	}
 );
 
+// eslint-disable-next-line no-undef
 Plugin.install = function (Vue) {
 	Vue.axios = _axios;
 	window.axios = _axios;

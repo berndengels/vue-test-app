@@ -23,11 +23,11 @@ export default {
 			commit('setLoading', true)
 			axios.get(apiURL)
 				.then(response => {
-					if( response.data.success && response.data.result && !response.data.errors ) {
-						commit('setTodos', response.data.result)
+					if (response.data.data && !response.data.error) {
+						commit('setTodos', response.data.data)
 						commit('setLoading', false)
 					} else {
-						commit('setStoreErrors', response.data.errors)
+						commit('setStoreErrors', response.data.error)
 					}
 				})
 				.catch(err => console.error(err))
@@ -35,26 +35,29 @@ export default {
 		apiStore({commit}, todo) {
 			axios.post(apiURL, todo)
 				.then(response => {
-					if( response.data.success && response.data.result && !response.data.errors ) {
+					if (response.data.data && !response.data.error) {
 						commit('clearStoreErrors')
-						commit('newTodo', response.data.result)
+						commit('newTodo', response.data.data)
 						commit('selectedTodo', todo)
 					} else {
-						commit('setStoreErrors', response.data.errors)
+						commit('setStoreErrors', response.data.error)
 					}
 				})
 				.catch(err => console.error(err))
 		},
 		apiUpdate({commit}, todo) {
-			axios.put(apiURL + "/" + todo.id, todo)
+			const config = {
+				headers: { Authorization: `Bearer ${localStorage.getItem('user.token')}` }
+			};
+			axios.put(apiURL + "/" + todo.id, todo, config)
 				.then(response => {
-					if( response.data.success && response.data.result && !response.data.errors ) {
+					if (response.data.data && !response.data.error) {
 						commit('clearUpdateErrors')
 						commit('updatedTodo', todo)
 						commit('selectedTodo', todo)
 					} else {
-						const errors = response.data.errors
-						commit('setUpdateErrors', { todo, errors } )
+						const errors = response.data.error
+						commit('setUpdateErrors', {todo, errors})
 					}
 				})
 				.catch(err => console.error(err))
@@ -83,7 +86,7 @@ export default {
 		clearStoreErrors: (state) => (state.storeErrors = null),
 		clearUpdateErrors: (state) => (state.updateErrors = []),
 		setStoreErrors: (state, errors) => (state.storeErrors = errors),
-		setUpdateErrors: (state, { todo, errors }) => (state.updateErrors = {[todo.id]: errors}),
+		setUpdateErrors: (state, {todo, errors}) => (state.updateErrors = {[todo.id]: errors}),
 		setLoading: (state, loading) => (state.loading = loading),
 	},
 }

@@ -9,15 +9,13 @@
                 <label for="password">Passwort: </label>
                 <b-input id="password" v-model="user.password" required type="password"/>
             </b-form-group>
-            <b-btn role="button" @click="login">Login</b-btn>
+            <b-btn role="button" @click="handleLogin">Login</b-btn>
         </b-form>
     </div>
 </template>
 
 <script>
-import axios from "axios";
-
-const apiURL = "http://videostore.loc/api/login";
+import {mapActions} from 'vuex';
 
 export default {
     name: "Login",
@@ -30,22 +28,13 @@ export default {
         }
     },
     methods: {
-        login() {
-            console.info(this.user)
-            axios.post(apiURL, this.user)
-                .then(resp => {
-                    localStorage.setItem('user.name', resp.data.name);
-                    localStorage.setItem('user.token', resp.data.token);
-                    const userName = localStorage.getItem('user.name');
-                    const userToken = localStorage.getItem('user.token');
-                    console.info(userName);
-                    console.info(userToken);
-                })
-                .catch(err => {
-                    console.info(err.data)
-                });
-        }
-    }
+        ...mapActions({
+            login: 'user/login',
+        }),
+        handleLogin() {
+            this.login(this.user)
+        },
+    },
 }
 </script>
 

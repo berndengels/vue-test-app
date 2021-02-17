@@ -1,7 +1,35 @@
-import axios from 'axios'
+import Axios from 'axios'
 
-const apiURL = "http://videostore.loc/api/todos"
+const apiURL = "http://videostore.loc/api/todos",
+	authToken = localStorage.getItem('user.token'),
+	_axios = Axios.create({
+		baseURL: apiURL,
+		withCredentials: true,
+	});
 
+console.info(authToken);
+
+if(authToken) {
+	_axios.defaults.headers.common['Authorization'] = "Bearer " + authToken
+}
+const axios = _axios
+
+const handleErrors = (err) => {
+	if (err.response) {
+		let resp = err.response
+		switch (resp.status) {
+			// unauthenticated
+			case 401:
+				alert(err.response.data.message)
+				location.href="/#/login";
+				break;
+			default:
+				alert(err.response.data.message)
+				break;
+		}
+	}
+	console.error(err)
+}
 export default {
 	namespaced: true,
 	state: {
@@ -10,6 +38,7 @@ export default {
 		storeErrors: null,
 		updateErrors: [],
 		loading: false,
+		user: null,
 	},
 	getters: {
 		allTodos: (state => state.todos),
@@ -17,11 +46,12 @@ export default {
 		storeErrors: (state => state.storeErrors),
 		updateErrors: (state => id => state.updateErrors[id] ?? null),
 		isLoading: (state => state.loading),
+		user: (state => state.user),
 	},
 	actions: {
 		apiIndex({commit}) {
 			commit('setLoading', true)
-			axios.get(apiURL)
+			axios.get()
 				.then(response => {
 					if (response.data.data && !response.data.error) {
 						commit('setTodos', response.data.data)
@@ -43,7 +73,7 @@ export default {
 						commit('setStoreErrors', response.data.error)
 					}
 				})
-				.catch(err => console.error(err))
+				.catch(err => handleErrors(err))
 		},
 		apiUpdate({commit}, todo) {
 			const config = {
@@ -60,7 +90,7 @@ export default {
 						commit('setUpdateErrors', {todo, errors})
 					}
 				})
-				.catch(err => console.error(err))
+				.catch(err => handleErrors(err))
 		},
 		apiDestroy({commit}, todo) {
 			if (!confirm('Daten wirklich löschen?')) {
@@ -71,10 +101,19 @@ export default {
 					commit('removedTodo', todo)
 					commit('selectedTodo', {})
 				})
-				.catch(err => console.error(err))
+				.catch(err => handleErrors(err))
 		},
 		selectTodo({commit}, todo) {
 			commit('selectedTodo', todo)
+		},
+		login({commit}, user) {
+			localStorage.setItem('user.name', user.name);
+			localStorage.setItem('user.token', user.token);
+			commit('setUser', user)
+		},
+		logout({commit}) {
+			localStorage.clear()
+			commit('removeUser')
 		},
 	},
 	mutations: {
@@ -88,5 +127,7 @@ export default {
 		setStoreErrors: (state, errors) => (state.storeErrors = errors),
 		setUpdateErrors: (state, {todo, errors}) => (state.updateErrors = {[todo.id]: errors}),
 		setLoading: (state, loading) => (state.loading = loading),
+		setUser: (state, user) => state.user = user,
+		removeUser: (state) => state.user = null,
 	},
 }

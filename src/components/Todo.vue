@@ -60,26 +60,21 @@ export default {
 .done {
     text-decoration: line-through;
 }
-
 form {
     display: flex;
     width: 100%;
 }
-
 input[type="checkbox"] {
     flex: 0.5;
 }
-
 input[type="text"] {
     flex: 10;
     height: 1.8rem;
     border: none;
 }
-
 button {
     flex: 1;
 }
-
 li {
     list-style: none;
     height: auto;
@@ -90,7 +85,6 @@ li {
     border-radius: 5px;
     text-align: left;
 }
-
 svg[data-icon] {
     display: inline;
     margin-right: 5px;

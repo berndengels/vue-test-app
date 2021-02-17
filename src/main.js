@@ -1,18 +1,18 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
-import './plugins/axios'
 import './plugins/fontawesome'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Plugin from "@/plugins/axios";
-//import Axios from "axios";
-
+import axios from 'axios'
+/*
+const _axios = axios.create({
+	baseURL
+})
+*/
 Vue.config.productionTip = false
-
-Vue.use(Plugin);
 
 new Vue({
 	router,

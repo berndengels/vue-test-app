@@ -1,18 +1,12 @@
-import Axios from 'axios'
+import '@/plugins/axios'
+import Vue from 'vue';
 
-const apiURL = "http://videostore.loc/api/todos",
+console.info('axios')
+console.info(Vue.axios)
+
+const apiRoute = "/api/todos",
 	authToken = localStorage.getItem('user.token'),
-	_axios = Axios.create({
-		baseURL: apiURL,
-		withCredentials: true,
-	});
-
-console.info(authToken);
-
-if(authToken) {
-	_axios.defaults.headers.common['Authorization'] = "Bearer " + authToken
-}
-const axios = _axios
+	axios = Vue.axios;
 
 const handleErrors = (err) => {
 	if (err.response) {
@@ -38,7 +32,6 @@ export default {
 		storeErrors: null,
 		updateErrors: [],
 		loading: false,
-		user: null,
 	},
 	getters: {
 		allTodos: (state => state.todos),
@@ -46,12 +39,11 @@ export default {
 		storeErrors: (state => state.storeErrors),
 		updateErrors: (state => id => state.updateErrors[id] ?? null),
 		isLoading: (state => state.loading),
-		user: (state => state.user),
 	},
 	actions: {
 		apiIndex({commit}) {
 			commit('setLoading', true)
-			axios.get()
+			axios.get(apiRoute)
 				.then(response => {
 					if (response.data.data && !response.data.error) {
 						commit('setTodos', response.data.data)
@@ -63,7 +55,7 @@ export default {
 				.catch(err => console.error(err))
 		},
 		apiStore({commit}, todo) {
-			axios.post(apiURL, todo)
+			axios.post(apiRoute, todo)
 				.then(response => {
 					if (response.data.data && !response.data.error) {
 						commit('clearStoreErrors')
@@ -79,7 +71,7 @@ export default {
 			const config = {
 				headers: { Authorization: `Bearer ${localStorage.getItem('user.token')}` }
 			};
-			axios.put(apiURL + "/" + todo.id, todo, config)
+			axios.put(apiRoute + "/" + todo.id, todo, config)
 				.then(response => {
 					if (response.data.data && !response.data.error) {
 						commit('clearUpdateErrors')
@@ -96,7 +88,7 @@ export default {
 			if (!confirm('Daten wirklich löschen?')) {
 				return
 			}
-			axios.delete(apiURL + "/" + todo.id)
+			axios.delete(apiRoute + "/" + todo.id)
 				.then(() => {
 					commit('removedTodo', todo)
 					commit('selectedTodo', {})
@@ -105,15 +97,6 @@ export default {
 		},
 		selectTodo({commit}, todo) {
 			commit('selectedTodo', todo)
-		},
-		login({commit}, user) {
-			localStorage.setItem('user.name', user.name);
-			localStorage.setItem('user.token', user.token);
-			commit('setUser', user)
-		},
-		logout({commit}) {
-			localStorage.clear()
-			commit('removeUser')
 		},
 	},
 	mutations: {
@@ -127,7 +110,5 @@ export default {
 		setStoreErrors: (state, errors) => (state.storeErrors = errors),
 		setUpdateErrors: (state, {todo, errors}) => (state.updateErrors = {[todo.id]: errors}),
 		setLoading: (state, loading) => (state.loading = loading),
-		setUser: (state, user) => state.user = user,
-		removeUser: (state) => state.user = null,
 	},
 }

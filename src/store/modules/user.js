@@ -1,17 +1,15 @@
-import Axios from 'axios'
+import '@/plugins/axios'
+import Vue from 'vue';
 
-const apiURL = "http://videostore.loc",
-	_axios = Axios.create({
-		baseURL: apiURL,
-//		withCredentials: true,
-	});
-
-const axios = _axios
+const axios = Vue.axios
 
 export default {
 	namespaced: true,
 	state: {
-		user: null,
+		user: {
+			name: localStorage.getItem('user.name'),
+			token: localStorage.getItem('user.token'),
+		}
 	},
 	getters: {
 		myUser: (state => state.user ?? null),

@@ -10,12 +10,17 @@ import axios from "axios";
 
 let config = {
 	// baseURL: process.env.baseURL || process.env.apiUrl || ""
-	baseURL: "http://videostore.loc/api/todos"
+	baseURL: "http://videostore.loc",
 	// timeout: 60 * 1000, // Timeout
-	// withCredentials: true, // Check cross-site Access-Control
+	withCredentials: true, // Check cross-site Access-Control
 };
 
-const _axios = axios.create(config);
+const _axios = axios.create(config),
+	userToken = localStorage.getItem('user.token');
+
+if(userToken) {
+	_axios.defaults.headers.common['Authorization'] = "Bearer " + userToken
+}
 
 _axios.interceptors.request.use(
 	function (config) {

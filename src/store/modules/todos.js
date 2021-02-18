@@ -5,7 +5,6 @@ console.info('axios')
 console.info(Vue.axios)
 
 const apiRoute = "/api/todos",
-	authToken = localStorage.getItem('user.token'),
 	axios = Vue.axios;
 
 const handleErrors = (err) => {

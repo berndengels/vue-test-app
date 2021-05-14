@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             user: {
-                email: "engels@f50.de",
+                email: "admin@test.com",
                 password: "password",
             }
         }

@@ -1,9 +1,6 @@
 import '@/plugins/axios'
 import Vue from 'vue';
 
-console.info('axios')
-console.info(Vue.axios)
-
 const apiRoute = "/api/todos",
 	axios = Vue.axios;
 

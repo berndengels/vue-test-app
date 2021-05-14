@@ -28,7 +28,9 @@ import Todo from "./Todo";
 import TodoInfo from "./TodoInfo";
 import Modal from "./layouts/Modal";
 import {mapActions, mapGetters} from 'vuex'
+import store from "../store";
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import todos from "../store/modules/todos";
 
 export default {
     name: 'Todos',
@@ -45,7 +47,8 @@ export default {
         }
     },
     created() {
-        this.apiIndex()
+//        this.apiIndex()
+        store.dispatch('todos/apiIndex')
     },
     computed: {
         ...mapGetters({
@@ -54,7 +57,7 @@ export default {
         }),
     },
     methods: {
-        ...mapActions({apiIndex: 'todos/apiIndex'}),
+        //...mapActions({apiIndex: 'todos/apiIndex'}),
     }
 }
 </script>
